@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Password Manager</string>
+
+    <string name="credential_list_fragment">CredentialListFragment</string>
+    <string name="credential_edit_fragment">CredentialEditFragment</string>
+    <string name="post_list_fragment">PostListFragment</string>
+
+    <string name="cleared_message">Weboldal törölve</string>
+    <string name="api_request_failed">Posztok lekérése sikertelen</string>
+    <string name="api_request_button">Posztok lekérése</string>
+    <string name="number_of_posts">Posztok száma: %d</string>
+    <string name="new_credential_button">Weboldal hozzáadása</string>
+    <string name="website_text">Weboldal címe</string>
+    <string name="username_text">Felhasználónév</string>
+    <string name="password_text">Jelszó</string>
+    <string name="edit_text">Módosítás / Hozzáadás</string>
+    <string name="cancel_button">Vissza</string>
+    <string name="save_button">Mentés</string>
+    <string name="edit_button">Szerkesztés</string>
+    <string name="delete_button">Törlés</string>
+    <string name="back_button">Vissza</string>
+    <string name="title_text">Cím</string>
+    <string name="body_text">Tartalom</string>
+
+</resources>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/credential_list_fragment">
+
+    <fragment
+        android:id="@+id/credential_list_fragment"
+        android:name="com.example.android.passwordmanager.credentiallist.CredentialListFragment"
+        android:label="@string/credential_list_fragment"
+        tools:layout="@layout/fragment_credential_list">
+        <action
+            android:id="@+id/action_credential_list_fragment_to_credential_edit_fragment"
+            app:destination="@id/credential_edit_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_right" />
+        <action
+            android:id="@+id/action_credential_list_fragment_to_post_list_fragment"
+            app:destination="@id/post_list_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/credential_edit_fragment"
+        android:name="com.example.android.passwordmanager.credentialedit.CredentialEditFragment"
+        android:label="@string/credential_edit_fragment"
+        tools:layout="@layout/fragment_credential_edit">
+        <argument
+            android:name="credentialId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_credential_edit_fragment_to_credential_list_fragment"
+            app:destination="@id/credential_list_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/post_list_fragment"
+        android:name="com.example.android.passwordmanager.postlist.PostListFragment"
+        android:label="@string/post_list_fragment"
+        tools:layout="@layout/fragment_post_list">
+        <action
+            android:id="@+id/action_post_list_fragment_to_credential_list_fragment"
+            app:destination="@id/credential_list_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_right" />
+    </fragment>
+
+</navigation>
