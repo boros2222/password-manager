@@ -41,7 +41,7 @@ class CredentialListFragment : Fragment() {
 
         credentialListViewModel.credentials.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.data = it
+                adapter.addHeaderAndSubmitList(it)
             }
         })
 

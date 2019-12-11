@@ -23,5 +23,7 @@
     <string name="back_button">Vissza</string>
     <string name="title_text">Cím</string>
     <string name="body_text">Tartalom</string>
+    <string name="credentials">Belépések</string>
+    <string name="posts">Posztok</string>
 
 </resources>
