@@ -21,8 +21,8 @@ private const val ITEM_VIEW_TYPE_HEADER = 0
 private const val ITEM_VIEW_TYPE_ITEM = 1
 
 class CredentialAdapter(
-        private val deleteListener: (Long) -> Unit,
-        private val editListener: (Long) -> Unit
+        private val deleteListener: CredentialListener,
+        private val editListener: CredentialListener
 ): ListAdapter<DataItem, RecyclerView.ViewHolder>(CredentialDiffCallback()) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
@@ -50,7 +50,7 @@ class CredentialAdapter(
         when (holder) {
             is ViewHolder -> {
                 val credentialItem = getItem(position) as DataItem.CredentialItem
-                holder.bind(credentialItem.credential)
+                holder.bind(credentialItem.credential, deleteListener, editListener)
             }
         }
 
@@ -59,7 +59,7 @@ class CredentialAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_VIEW_TYPE_HEADER -> TextViewHolder.from(parent)
-            ITEM_VIEW_TYPE_ITEM -> ViewHolder.from(parent, deleteListener, editListener)
+            ITEM_VIEW_TYPE_ITEM -> ViewHolder.from(parent)
             else -> throw ClassCastException("Unknown viewType ${viewType}")
         }
     }
@@ -74,32 +74,27 @@ class CredentialAdapter(
         }
     }
 
-    class ViewHolder private constructor(val binding: CredentialItemBinding,
-                                         private val deleteListener: (Long) -> Unit,
-                                         private val editListener: (Long) -> Unit
-    ) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(val binding: CredentialItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        private val edit: Button = binding.editButton
-        private val delete: Button = binding.deleteButton
-
-        fun bind(item: Credential) {
+        fun bind(item: Credential, deleteListener: CredentialListener, editListener: CredentialListener) {
             binding.credential = item
+            binding.deleteListener = deleteListener
+            binding.editListener = editListener
             binding.executePendingBindings()
-            delete.setOnClickListener { deleteListener(item.id) }
-            edit.setOnClickListener { editListener(item.id) }
         }
 
         companion object {
-            fun from(parent: ViewGroup,
-                     deleteListener: (Long) -> Unit,
-                     editListener: (Long) -> Unit): ViewHolder {
-
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = CredentialItemBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding, deleteListener, editListener)
+                return ViewHolder(binding)
             }
         }
     }
+}
+
+class CredentialListener(val clickListener: (id: Long) -> Unit) {
+    fun onClick(credential: Credential) = clickListener(credential.id)
 }
 
 class CredentialDiffCallback : DiffUtil.ItemCallback<DataItem>() {

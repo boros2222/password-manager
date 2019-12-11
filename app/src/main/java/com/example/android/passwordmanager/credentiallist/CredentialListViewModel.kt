@@ -17,10 +17,13 @@ class CredentialListViewModel(
 
     val credentials = database.getAllCredentials()
 
+    private val _navigateToCredentialEdit = MutableLiveData<Long>()
+    val navigateToCredentialEdit
+        get() = _navigateToCredentialEdit
+
     private val _showSnackbar = MutableLiveData<Boolean>()
     val showSnackbar: LiveData<Boolean>
         get() = _showSnackbar
-
 
     init {
         _showSnackbar.value = false
@@ -37,6 +40,14 @@ class CredentialListViewModel(
         withContext(Dispatchers.IO) {
             database.clear(credentialId)
         }
+    }
+
+    fun edit(id: Long) {
+        _navigateToCredentialEdit.value = id
+    }
+
+    fun doneNavigatingToCredentialEdit() {
+        _navigateToCredentialEdit.value = null
     }
 
     fun doneShowingSnackbar() {

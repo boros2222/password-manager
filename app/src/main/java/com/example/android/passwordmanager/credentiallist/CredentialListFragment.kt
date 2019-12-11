@@ -34,8 +34,9 @@ class CredentialListFragment : Fragment() {
         binding.credentialListViewModel = credentialListViewModel
 
         val adapter = CredentialAdapter(
-                {id: Long -> credentialListViewModel.delete(id)},
-                {id: Long -> onEditCredential(id)})
+                CredentialListener { id -> credentialListViewModel.delete(id) },
+                CredentialListener { id -> credentialListViewModel.edit(id) }
+        )
 
         binding.credentialList.adapter = adapter
 
@@ -53,6 +54,13 @@ class CredentialListFragment : Fragment() {
                         Snackbar.LENGTH_SHORT
                 ).show()
                 credentialListViewModel.doneShowingSnackbar()
+            }
+        })
+
+        credentialListViewModel.navigateToCredentialEdit.observe(this, Observer { id ->
+            id?.let {
+                onEditCredential(id)
+                credentialListViewModel.doneNavigatingToCredentialEdit()
             }
         })
 
