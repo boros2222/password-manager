@@ -18,7 +18,7 @@ class CredentialListViewModel(
     val credentials = database.getAllCredentials()
 
     private val _navigateToCredentialEdit = MutableLiveData<Long>()
-    val navigateToCredentialEdit
+    val navigateToCredentialEdit: LiveData<Long>
         get() = _navigateToCredentialEdit
 
     private val _showSnackbar = MutableLiveData<Boolean>()
